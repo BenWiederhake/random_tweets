@@ -11,19 +11,21 @@ import twython
 
 #KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর', 'أخبار', 'ข่าว', 'समाचार', 'мэдээ', 'خبریں', 'naidheachdan']
 KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
-RETWEET_PERIOD = datetime.timedelta(minutes=5)
+RETWEET_PERIOD = datetime.timedelta(minutes=2)
 
 
 class StreamerIn(twython.TwythonStreamer):
     def __init__(self, pk, ps, ct, cts):
         super().__init__(pk, ps, ct, cts)
-        self.twitter = twython.Twython(pk, access_token=ct)
+        self.twitter = twython.Twython(pk, ps, ct, cts)
+        self.twitter.verify_credentials()  # Fail early
+        self.counter = 0
         self.store = store.Store()
         self.last_retweet = datetime.datetime.now()
 
     def do_retweet(self):
         tweet = self.store.pop_random()
-        print('Retweeting #{}'.format(tweet['id']))
+        print('Retweeting #{}: {}'.format(tweet['id'], tweet['lang']))
         self.twitter.retweet(id=tweet['id'])
 
     def on_success(self, tweet_data):
@@ -38,9 +40,16 @@ class StreamerIn(twython.TwythonStreamer):
         for key in ['id', 'lang', 'text']:
             if key in tweet_data:
                 retained[key] = tweet_data[key]
+        self.counter += 1
         self.store.append(retained)
         now = datetime.datetime.now()
-        if now - self.last_retweet >= RETWEET_PERIOD:
+        if now - self.last_retweet < RETWEET_PERIOD:
+            print('{}: Too early for retweet.'.format(now))
+        elif self.counter < 10:
+            print('{}: Too few tweets for retweet.'.format(now))
+        else:
+            print('{}: Retweet!  Saw {} tweets in the meantime.'.format(now, self.counter))
+            self.counter = 0
             self.last_retweet = now
             self.do_retweet()
 
