@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-
 from collections import defaultdict
-import secrets
+import feel_random
 import twython
 
 
@@ -26,6 +25,7 @@ class OverflowingQueue:
 class Store:
     def __init__(self):
         self.per_lang = defaultdict(OverflowingQueue)
+        self.random = feel_random.ChoiceMemory()
 
     def append(self, tweet):
         if 'quoted_status' in tweet or 'retweeted_status' in tweet:
@@ -38,7 +38,7 @@ class Store:
         self.per_lang[tweet['lang']].append(tweet)
 
     def pop_random(self):
-        random_lang = secrets.choice(list(self.per_lang.keys()))
+        random_lang = self.random.choose(list(self.per_lang.keys()))
         print('\tSelected language {}'.format(random_lang))
         random_queue = self.per_lang[random_lang]
         x = random_queue.pop()
