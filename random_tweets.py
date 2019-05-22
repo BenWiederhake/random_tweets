@@ -10,7 +10,8 @@ import twython
 
 
 #KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর', 'أخبار', 'ข่าว', 'समाचार', 'мэдээ', 'خبریں', 'naidheachdan']
-KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
+KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর', 'أخبار', 'ข่าว', 'समाचार', 'мэдээ','naidheachdan']
+#KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
 RETWEET_PERIOD = datetime.timedelta(minutes=2)
 
 
@@ -44,7 +45,8 @@ class StreamerIn(twython.TwythonStreamer):
         self.store.append(retained)
         now = datetime.datetime.now()
         if now - self.last_retweet < RETWEET_PERIOD:
-            print('{}: Too early for retweet.'.format(now))
+            #print('{}: Too early for retweet.'.format(now))
+            pass
         elif self.counter < 10:
             print('{}: Too few tweets for retweet.'.format(now))
         else:
@@ -64,7 +66,10 @@ def run_firehose():
     stream = StreamerIn(account_secrets.API_KEY, account_secrets.API_SECRET, account_secrets.ACCESS_TOKEN,
                         account_secrets.ACCESS_TOKEN_SECRET)
     print('Begin filtering ...')
-    stream.statuses.filter(track=KEYWORDS)
+    try:
+        stream.statuses.filter(track=KEYWORDS)
+    except KeyboardInterrupt:
+        pass
     print('Done filtering ...')
 
 
