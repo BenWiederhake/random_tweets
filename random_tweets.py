@@ -25,9 +25,19 @@ class StreamerIn(twython.TwythonStreamer):
         self.last_retweet = datetime.datetime.now()
 
     def do_retweet(self):
-        tweet = self.store.pop_random()
-        print('Retweeting #{}: {}'.format(tweet['id'], tweet['lang']))
-        self.twitter.retweet(id=tweet['id'])
+        success = False
+        while not success:
+            tweet = self.store.pop_random()
+            print('Retweeting #{}: {}'.format(tweet['id'], tweet['lang']))
+            try:
+                self.twitter.retweet(id=tweet['id'])
+                success = True
+            except twython.exceptions.TwythonError as e:
+                if 'You have already retweeted this Tweet' in e.msg:
+                    # Eh, whatever
+                    pass
+                else:
+                    raise e
 
     def on_success(self, tweet_data):
         if 'text' not in tweet_data:
