@@ -35,6 +35,10 @@ class StreamerIn(twython.TwythonStreamer):
             except twython.exceptions.TwythonError as e:
                 if 'You have already retweeted this Tweet' in e.msg:
                     # Eh, whatever
+                    print('\tWhoops, already retweeted.')
+                    pass
+                elif 'No status found with that ID.' in e.msg:
+                    print('\tWhoops, user deleted it.')
                     pass
                 else:
                     raise e

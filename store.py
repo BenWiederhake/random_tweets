@@ -39,6 +39,7 @@ class Store:
 
     def pop_random(self):
         random_lang = secrets.choice(list(self.per_lang.keys()))
+        print('\tSelected language {}'.format(random_lang))
         random_queue = self.per_lang[random_lang]
         x = random_queue.pop()
         if not random_queue:
