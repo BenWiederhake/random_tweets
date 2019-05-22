@@ -3,6 +3,7 @@
 import account_secrets
 import json
 import secrets
+import store
 import time  # sleep
 import twython
 
@@ -13,11 +14,15 @@ KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
 
 class StreamerIn(twython.TwythonStreamer):
     def __init__(self, pk, ps, ct, cts):
-        super.__init__(pk, ps, ct, cts)
+        super().__init__(pk, ps, ct, cts)
         self.twitter = twython.Twython(pk, access_token=ct)
+        self.store = store.Store()
+        self.counter = 0
 
     def do_retweet(self, tweet):
-        pass
+        tweet = self.store.pop_random()
+        print('Retweeting #{}'.format(tweet['id']))
+        self.twitter.retweet(id=tweet['id'])
 
     def on_success(self, tweet_data):
         if 'text' not in tweet_data:
@@ -28,11 +33,11 @@ class StreamerIn(twython.TwythonStreamer):
         with open('tweets/{}_{}.json'.format(secrets.token_hex(8), tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
         # TODO: Retweet it.
-        # retained = dict()
-        # for key in ['id', 'lang', 'text']:
-        #     if key in tweet_data:
-        #         retained[key] = tweet_data[key]
-        # print(retained)
+        retained = dict()
+        for key in ['id', 'lang', 'text']:
+            if key in tweet_data:
+                retained[key] = tweet_data[key]
+        self.store.append(retained)
 
     def on_error(self, status_code, data):
         print(status_code, data)

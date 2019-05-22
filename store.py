@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+
+
+from collections import defaultdict
+import secrets
+import twython
+
+
+class OverflowingQueue:
+    def __init__(self):
+        self.backing = []
+
+    def append(self, x):
+        self.backing.append(x)
+        if len(self.backing) > 20:
+            self.backing = self.backing[-10:]
+
+    def pop(self):
+        if self.backing:
+            return self.backing.pop()
+
+    def __bool__(self):
+        return bool(self.backing)
+
+
+class Store:
+    def __init__(self):
+        self.per_lang = defaultdict(OverflowingQueue)
+
+    def append(self, tweet):
+        if 'quoted_status' in tweet or 'retweeted_status' in tweet:
+            # Skip
+            return
+        for key in ['id', 'lang', 'text']:
+            if key not in tweet:
+                # Weird incomplete tweet
+                return
+        self.per_lang[tweet['lang']].append(tweet)
+
+    def pop_random(self):
+        random_lang = secrets.choice(list(self.per_lang.keys()))
+        random_queue = self.per_lang[random_lang]
+        x = random_queue.pop()
+        if not random_queue:
+            del self.per_lang[random_lang]
+        return x
+
+
+def run_test():
+    import glob
+    import json
+
+    f = glob.glob('tweets/*.json')
+    print('Found {} files.'.format(len(f)))
+    store = Store()
+    for (i, name) in enumerate(f):
+        if i % 50 == 30:
+            tweet = store.pop_random()
+            print(tweet['id'], tweet['lang'], tweet['text'])
+        with open(name, 'r') as fp:
+            store.append(json.load(fp))
+    print('Done.')
+
+
+if __name__ == '__main__':
+    run_test()
