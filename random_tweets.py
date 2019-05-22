@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import account_secrets
+import datetime
 import json
 import secrets
 import store
@@ -10,6 +11,7 @@ import twython
 
 #KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর', 'أخبار', 'ข่าว', 'समाचार', 'мэдээ', 'خبریں', 'naidheachdan']
 KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
+RETWEET_PERIOD = datetime.timedelta(minutes=5)
 
 
 class StreamerIn(twython.TwythonStreamer):
@@ -17,9 +19,9 @@ class StreamerIn(twython.TwythonStreamer):
         super().__init__(pk, ps, ct, cts)
         self.twitter = twython.Twython(pk, access_token=ct)
         self.store = store.Store()
-        self.counter = 0
+        self.last_retweet = datetime.datetime.now()
 
-    def do_retweet(self, tweet):
+    def do_retweet(self):
         tweet = self.store.pop_random()
         print('Retweeting #{}'.format(tweet['id']))
         self.twitter.retweet(id=tweet['id'])
@@ -32,12 +34,15 @@ class StreamerIn(twython.TwythonStreamer):
             return
         with open('tweets/{}_{}.json'.format(secrets.token_hex(8), tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
-        # TODO: Retweet it.
         retained = dict()
         for key in ['id', 'lang', 'text']:
             if key in tweet_data:
                 retained[key] = tweet_data[key]
         self.store.append(retained)
+        now = datetime.datetime.now()
+        if now - self.last_retweet >= RETWEET_PERIOD:
+            self.last_retweet = now
+            self.do_retweet()
 
     def on_error(self, status_code, data):
         print(status_code, data)
