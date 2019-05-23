@@ -47,7 +47,8 @@ class Store:
         return x
 
     def update(self, lang):
-        assert lang in self.per_lang
+        # Note: If that was the last known tweet of that language,
+        # it could be that self.per_lan[lang] no longer exists.
         self.random.update(lang)
 
 
