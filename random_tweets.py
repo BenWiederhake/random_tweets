@@ -28,7 +28,7 @@ class StreamerIn(twython.TwythonStreamer):
         success = False
         while not success:
             tweet = self.store.pop_random(auto_update=False)
-            print('Retweeting #{}: {}'.format(tweet['id'], tweet['lang']))
+            print('\tRetweeting #{}: {}'.format(tweet['id'], tweet['lang']))
             try:
                 self.twitter.retweet(id=tweet['id'])
                 success = True
