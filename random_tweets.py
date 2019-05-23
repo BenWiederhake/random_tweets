@@ -9,8 +9,8 @@ import time  # sleep
 import twython
 
 
-#KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর', 'أخبار', 'ข่าว', 'समाचार', 'мэдээ', 'خبریں', 'naidheachdan']
-KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর', 'أخبار', 'ข่าว', 'समाचार', 'мэдээ','naidheachdan']
+KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর',
+            'أخبار', 'ข่าว', 'समाचार', 'мэдээ','naidheachdan', 'ዜና', 'Tin tức', 'novaĵoj']
 #KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
 RETWEET_PERIOD = datetime.timedelta(minutes=2)
 
