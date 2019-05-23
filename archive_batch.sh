@@ -10,12 +10,12 @@ set -e
 # - tar doesn't like files whose content changes
 # So I had to write this abomination.
 
+date
 cd "$(dirname "$0")"
 
 DIRNAME="tweets/"
 TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")"
 FILE_TAR="${TARBASENAME}.tar"
-FILE_TARLZ4="${TARBASENAME}.tar.lz4"
 FILELIST="$(mktemp)"
 
 # This cements the file selection:
@@ -42,7 +42,7 @@ else
     exit "$EXITCODE"
 fi
 
-if lz4 -q "${FILE_TAR}" "${FILE_TARLZ4}"
+if xz "${FILE_TAR}"
 then
     true # pass
 else
@@ -51,5 +51,4 @@ else
     exit "$EXITCODE"
 fi
 
-rm -f "${FILE_TAR}"
-
+date
