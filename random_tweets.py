@@ -20,6 +20,7 @@ class StreamerIn(twython.TwythonStreamer):
         super().__init__(pk, ps, ct, cts)
         self.twitter = twython.Twython(pk, ps, ct, cts)
         self.twitter.verify_credentials()  # Fail early
+        self.written = 0
         self.counter = 0
         self.store = store.Store()
         self.last_retweet = datetime.datetime.now()
@@ -48,6 +49,7 @@ class StreamerIn(twython.TwythonStreamer):
         random_token = '{:016x}'.format(random.getrandbits(64))
         with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
+        self.written += 1
         if 'text' not in tweet_data:
             return
         if 'scopes' in tweet_data and 'followers' in tweet_data['scopes'] and not tweet_data['scopes']['followers']:
@@ -69,8 +71,9 @@ class StreamerIn(twython.TwythonStreamer):
         elif self.counter < 10:
             print('{}: Too few tweets for retweet.'.format(now))
         else:
-            print('{}: Retweet!  Saw {} tweets in the meantime.'.format(now, self.counter))
+            print('{}: Retweet!  Saw {} tweets in the meantime; {} usable ones.'.format(now, self.written, self.counter))
             self.counter = 0
+            self.written = 0
             self.last_retweet = now
             self.do_retweet()
 

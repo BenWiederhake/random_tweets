@@ -1,3 +1,3 @@
 #!/bin/sh
 
-unbuffer ./random_tweets.py | tee bot.log
+unbuffer ./random_tweets.py | tee -a bot.log

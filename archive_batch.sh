@@ -10,6 +10,8 @@ set -e
 # - tar doesn't like files whose content changes
 # So I had to write this abomination.
 
+cd "$(dirname "$0")"
+
 DIRNAME="tweets/"
 TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")"
 FILE_TAR="${TARBASENAME}.tar"
