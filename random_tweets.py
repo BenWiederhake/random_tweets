@@ -50,7 +50,7 @@ class StreamerIn(twython.TwythonStreamer):
         if 'scopes' in tweet_data and 'followers' in tweet_data['scopes'] and not tweet_data['scopes']['followers']:
             # Ad
             return
-        if tweet_data.get('retweeted_status') is None:
+        if tweet_data.get('retweeted_status') is not None:
             # Retweet or reply
             return
         random_token = '{:016x}'.format(random.getrandbits(64))
