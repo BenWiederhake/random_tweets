@@ -50,6 +50,9 @@ class StreamerIn(twython.TwythonStreamer):
         if 'scopes' in tweet_data and 'followers' in tweet_data['scopes'] and not tweet_data['scopes']['followers']:
             # Ad
             return
+        if tweet_data.get('retweeted_status') is None:
+            # Retweet or reply
+            return
         random_token = '{:016x}'.format(random.getrandbits(64))
         with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
