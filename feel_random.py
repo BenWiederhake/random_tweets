@@ -23,7 +23,7 @@ class ChoiceMemory:
         self.lastseen = dict()
         self.counter = 0
 
-    def choose(self, available):
+    def choose(self, available, auto_update=True):
         available = list(available)
         new = []
         assert available
@@ -35,18 +35,20 @@ class ChoiceMemory:
             lru_order.append((self.lastseen[e], e))
         if new:
             e = random.choice(new)
-            self._update(e)
+            if auto_update:
+                self.update(e)
             return e            
         lru_order.sort()
         for (i, (_, e)) in enumerate(lru_order):
             remaining_n = len(lru_order) - i
             prob = 1.8 / remaining_n
             if random.random() <= prob:
-                self._update(e)
+                if auto_update:
+                    self.update(e)
                 return e
         raise AssertionError
 
-    def _update(self, element):
+    def update(self, element):
         self.lastseen[element] = self.counter
         self.counter += 1
 

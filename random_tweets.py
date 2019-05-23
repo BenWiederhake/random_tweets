@@ -27,7 +27,7 @@ class StreamerIn(twython.TwythonStreamer):
     def do_retweet(self):
         success = False
         while not success:
-            tweet = self.store.pop_random()
+            tweet = self.store.pop_random(auto_update=False)
             print('Retweeting #{}: {}'.format(tweet['id'], tweet['lang']))
             try:
                 self.twitter.retweet(id=tweet['id'])
@@ -42,6 +42,7 @@ class StreamerIn(twython.TwythonStreamer):
                     pass
                 else:
                     raise e
+            self.store.update(tweet['lang'])
 
     def on_success(self, tweet_data):
         if 'text' not in tweet_data:

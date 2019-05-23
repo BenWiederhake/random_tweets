@@ -37,14 +37,18 @@ class Store:
                 return
         self.per_lang[tweet['lang']].append(tweet)
 
-    def pop_random(self):
-        random_lang = self.random.choose(list(self.per_lang.keys()))
+    def pop_random(self, auto_update=True):
+        random_lang = self.random.choose(list(self.per_lang.keys()), auto_update=auto_update)
         print('\tSelected language {}'.format(random_lang))
         random_queue = self.per_lang[random_lang]
         x = random_queue.pop()
         if not random_queue:
             del self.per_lang[random_lang]
         return x
+
+    def update(self, lang):
+        assert lang in self.per_lang
+        self.random.update(lang)
 
 
 def run_test():
