@@ -17,28 +17,16 @@ FILE_TARLZ4="${TARBASENAME}.tar.lz4"
 FILELIST="$(mktemp)"
 
 # This cements the file selection:
-find "${DIRNAME}" -name '*.json' -print0 > "${FILELIST}"
+find "${DIRNAME}" -name '*.json' -print0 | sort -z > "${FILELIST}"
 
-# The following `xargs` invocation may cause `tar` to be run multiple times,
-# so be compatible with that.
-if tar cf "${FILE_TAR}" -T /dev/null
+sleep 1 # Hopefully(!) finish writing files.
+
+if tar cf "${FILE_TAR}" --null -T "${FILELIST}"
 then
     true # pass
 else
     EXITCODE=$?
     echo "Creation failed, cleaning up tar file and filelist." >&2
-    rm -f "${FILE_TAR}" "${FILELIST}"
-    exit "$EXITCODE"
-fi
-
-sleep 1 # Hopefully(!) finish writing files.
-
-if xargs -0 -a "${FILELIST}" -r tar rf "${FILE_TAR}"
-then
-    true # pass
-else
-    EXITCODE=$?
-    echo "Adding failed, cleaning up tar file and filelist." >&2
     rm -f "${FILE_TAR}" "${FILELIST}"
     exit "$EXITCODE"
 fi
