@@ -3,7 +3,7 @@
 import account_secrets
 import datetime
 import json
-import secrets
+import random
 import store
 import time  # sleep
 import twython
@@ -50,7 +50,8 @@ class StreamerIn(twython.TwythonStreamer):
         if 'scopes' in tweet_data and 'followers' in tweet_data['scopes'] and not tweet_data['scopes']['followers']:
             # Ad
             return
-        with open('tweets/{}_{}.json'.format(secrets.token_hex(8), tweet_data.get('id')), 'w') as fp:
+        random_token = '{:016x}'.format(random.getrandbits(64))
+        with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
         retained = dict()
         for key in ['id', 'lang', 'text']:
