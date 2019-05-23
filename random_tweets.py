@@ -46,15 +46,15 @@ class StreamerIn(twython.TwythonStreamer):
             self.store.update(tweet['lang'])
 
     def on_success(self, tweet_data):
-        random_token = '{:016x}'.format(random.getrandbits(64))
-        with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
-            json.dump(tweet_data, fp, sort_keys=True, indent=1)
         self.written += 1
         if 'text' not in tweet_data:
             return
         if 'scopes' in tweet_data and 'followers' in tweet_data['scopes'] and not tweet_data['scopes']['followers']:
             # Ad
             return
+        random_token = '{:016x}'.format(random.getrandbits(64))
+        with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
+            json.dump(tweet_data, fp, sort_keys=True, indent=1)
         if tweet_data.get('retweeted_status') is not None:
             # Retweet or reply
             return
