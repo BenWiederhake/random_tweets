@@ -11,7 +11,8 @@ import twython
 
 
 KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשות', 'খবর',
-            'أخبار', 'ข่าว', 'समाचार', 'мэдээ','naidheachdan', 'ዜና', 'Tin tức', 'novaĵoj']
+            'أخبار', 'ข่าว', 'समाचार', 'мэдээ','naidheachdan', 'ዜና', 
+            'Tin tức', 'novaĵoj', 'સમાચાર', 'Habari']
 #KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
 RETWEET_PERIOD = datetime.timedelta(minutes=2)
 
