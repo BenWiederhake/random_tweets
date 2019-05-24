@@ -14,7 +14,7 @@ date
 cd "$(dirname "$0")"
 
 DIRNAME="tweets/"
-TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")"
+TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")_$(du -sm tweets/ | cut -f1)M"
 FILE_TAR="${TARBASENAME}.tar"
 FILELIST="$(mktemp)"
 
@@ -42,7 +42,7 @@ else
     exit "$EXITCODE"
 fi
 
-if xz "${FILE_TAR}"
+if gzip "${FILE_TAR}"
 then
     true # pass
 else
@@ -50,5 +50,7 @@ else
     echo "Recompression failed, *NOT* cleaning up anything.  Filelist at ${FILELIST}." >&2
     exit "$EXITCODE"
 fi
+
+rm "${FILELIST}"
 
 date
