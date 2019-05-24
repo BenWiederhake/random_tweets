@@ -4,6 +4,7 @@ import account_secrets
 import datetime
 import json
 import random
+import requests
 import store
 import time  # sleep
 import twython
@@ -82,17 +83,26 @@ class StreamerIn(twython.TwythonStreamer):
 
 
 def run_firehose():
-    print('Waiting ...')
-    time.sleep(2)
-    print('Starting up')
-    stream = StreamerIn(account_secrets.API_KEY, account_secrets.API_SECRET, account_secrets.ACCESS_TOKEN,
-                        account_secrets.ACCESS_TOKEN_SECRET)
-    print('Begin filtering ...')
-    try:
-        stream.statuses.filter(track=KEYWORDS)
-    except KeyboardInterrupt:
-        pass
-    print('Done filtering ...')
+    run = True
+    while run:
+        run = False
+        print('Waiting ...')
+        time.sleep(2)
+        print('Starting up')
+        stream = StreamerIn(account_secrets.API_KEY, account_secrets.API_SECRET, account_secrets.ACCESS_TOKEN,
+                            account_secrets.ACCESS_TOKEN_SECRET)
+        print('Begin filtering ...')
+        try:
+            stream.statuses.filter(track=KEYWORDS)
+        except KeyboardInterrupt:
+            print('KeyboardInterrupt, exiting ...')
+            pass
+        except requests.exceptions.ChunkedEncodingError as e:
+            print(e)
+            time.sleep(30)
+            run = True
+            print('{}: Restart!'.format(datetime.datetime.now()))
+    print('Good bye.')
 
 
 if __name__ == '__main__':
