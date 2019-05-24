@@ -21,6 +21,7 @@ BANNED_HOST_FINGERPRINTS = {
     # Want to ban certain hosts without writing their hostname too clearly.
     '-INVALID-',
     '944c0a950264718ab454db3fcd6af35c',  # d3d3LnNvY2lhbGhvdDI0LmNvbQ
+    'bcecfec2bc758f2cd7c2ae64832427d3',  # d3d3MTcucGxhbGEub3IuanA
 }
 
 
