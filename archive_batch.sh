@@ -14,7 +14,7 @@ date
 cd "$(dirname "$0")"
 
 DIRNAME="tweets/"
-TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")_$(du -sm tweets/ | cut -f1)M"
+TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")_$(du -sm tweets/ | cut -f1)MB"
 FILE_TAR="${TARBASENAME}.tar"
 FILELIST="$(mktemp)"
 
