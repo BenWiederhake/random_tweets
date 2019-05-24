@@ -2,6 +2,7 @@
 
 import account_secrets
 import datetime
+import hashlib
 import json
 import random
 import requests
@@ -15,6 +16,41 @@ KEYWORDS = ['uutiset', 'ニュース', 'hírek', 'Νέα', 'невс', 'חדשו
             'Tin tức', 'novaĵoj', 'સમાચાર', 'Habari']
 #KEYWORDS = ['uutiset', 'ニュース', 'חדשות', 'খবর', 'أخبار']
 RETWEET_PERIOD = datetime.timedelta(minutes=2)
+
+BANNED_HOST_FINGERPRINTS = {
+    # Want to ban certain hosts without writing their hostname too clearly.
+    '-INVALID-',
+    '944c0a950264718ab454db3fcd6af35c',  # d3d3LnNvY2lhbGhvdDI0LmNvbQ
+}
+
+
+def host_fingerprint(url):
+    host = requests.urllib3.util.url.parse_url(url).host
+    if host is None:
+        return '-INVALID-'
+    return hashlib.md5(host.encode('utf-8')).hexdigest()
+
+
+def urlent_looks_like_ad(urlent):
+    tweet_url = urlent.get('expanded_url')
+    if tweet_url is None:
+        return True  # Only accept malformed data to a certain point.
+    if host_fingerprint(tweet_url) in BANNED_HOST_FINGERPRINTS:
+        return True
+    # Other checks here
+    return False
+
+
+def tweet_looks_like_ad(tweet):
+    if 'scopes' in tweet and 'followers' in tweet['scopes'] and not tweet['scopes']['followers']:
+        # Inserted by Twitter
+        return True
+    if 'entities' in tweet and 'urls' in tweet['entities'] \
+            and any(urlent_looks_like_ad(urlent) for urlent in tweet['entities']['urls']):
+        # Spammy-looking stuff
+        return True
+    # Other checks here
+    return False
 
 
 class StreamerIn(twython.TwythonStreamer):
@@ -51,14 +87,14 @@ class StreamerIn(twython.TwythonStreamer):
         self.written += 1
         if 'text' not in tweet_data:
             return
-        if 'scopes' in tweet_data and 'followers' in tweet_data['scopes'] and not tweet_data['scopes']['followers']:
-            # Ad
-            return
         random_token = '{:016x}'.format(random.getrandbits(64))
         with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
         if tweet_data.get('retweeted_status') is not None:
             # Retweet or reply
+            return
+        if tweet_looks_like_ad(tweet_data):
+            # Ad
             return
         retained = dict()
         for key in ['id', 'lang', 'text']:
