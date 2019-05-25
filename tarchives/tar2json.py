@@ -27,22 +27,32 @@ def convert(srcfile):
     print('Success.')
 
 
-if len(sys.argv) < 2:
-    print('Usage: {} <FOO.tar.gz...>'.format(sys.argv[0]), file=sys.stderr)
-    print('Converts FOO.tar.gz into FOO_XKT.json.xz, for each FOO.', file=sys.stderr)
-    print('("XKT" is the number of tweets, e.g. "26KT".)', file=sys.stderr)
-    print('Note that this is highly CPU- and memory-intensive.', file=sys.stderr)
-    exit(1)
+def run(args):
+    if len(args) < 1:
+        print('Usage: {} <FOO.tar.gz...>'.format(sys.argv[0]), file=sys.stderr)
+        print('Converts FOO.tar.gz into FOO_XKT.json.xz, for each FOO.', file=sys.stderr)
+        print('("XKT" is the number of tweets, e.g. "26KT".)', file=sys.stderr)
+        print('Note that this is highly CPU- and memory-intensive.', file=sys.stderr)
+        exit(1)
 
-if sys.argv[1].startswith('-'):
-    print('Usage: {} <FOO.tar.gz...>'.format(sys.argv[0]), file=sys.stderr)
-    print('Cowardly refusing to access files starting with "-".', file=sys.stderr)
-    exit(1)
+    if args[0].startswith('-'):
+        print('Usage: {} <FOO.tar.gz...>'.format(sys.argv[0]), file=sys.stderr)
+        print('Cowardly refusing to access files starting with "-".', file=sys.stderr)
+        exit(1)
 
-if any(not arg.endswith(ARG_SUFFIX) for arg in sys.argv[1:]):
-    print('Usage: {} <FOO.tar.gz...>'.format(sys.argv[0]), file=sys.stderr)
-    print('Suffix must be ".tar.gz".', file=sys.stderr)
-    exit(1)
+    if any(not arg.endswith(ARG_SUFFIX) for arg in args):
+        print('Usage: {} <FOO.tar.gz...>'.format(sys.argv[0]), file=sys.stderr)
+        print('Suffix must be ".tar.gz".', file=sys.stderr)
+        exit(1)
 
-for srcfile in sys.argv[1:]:
-    convert(srcfile)
+    for srcfile in args:
+        convert(srcfile)
+
+
+def import_json(filename):
+    with lzma.open(filename, 'rt') as fp:
+        return json.load(fp)
+
+
+if __name__ == '__main__':
+    run(sys.argv[1:])

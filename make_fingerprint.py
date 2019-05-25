@@ -6,20 +6,28 @@ import random_tweets
 import requests
 import sys
 
-if len(sys.argv) == 1:
-    print('Usage: {} <HOSTNAMES...>'.format(sys.argv[0]), file=sys.stderr)
-    exit(1)
 
-for url in sys.argv[1:]:
-    # FIXME: WET: url→host
+def make_fingerprint(url):
     host = requests.urllib3.util.url.parse_url(url).host
     if host is None:
         host = '-INVALID-'
-    # FIXME: WET: host→fingerprint
     fingerprint = hashlib.md5(host.encode('utf-8')).hexdigest()
     comment = codecs.getencoder('base64')(host.encode('utf-8'))[0].decode('ascii').rstrip('\n=')
-    # print("URL: {u}\nHost: {h}\nFingerprint: {f}\nComment: {c}\nCopyable-line:\n---->8----\n    '{f}'  # {c}\n----8<----"
-    #     .format(u=url, h=host, f=fingerprint, c=comment))
-    #print("    '{f}',  # {c}, {h}"
-    print("    '{f}',  # {c}"
-        .format(u=url, h=host, f=fingerprint, c=comment))
+    return host, fingerprint, comment
+
+
+def run(args):
+    if len(args) == 0:
+        print('Usage: {} <HOSTNAMES...>'.format(sys.argv[0]), file=sys.stderr)
+        return 1
+
+    for url in args:
+        host, fingerprint, comment = make_fingerprint(url)
+        #print("    '{f}',  # {c}, {h}"
+        print("    '{f}',  # {c}"
+            .format(u=url, h=host, f=fingerprint, c=comment))
+    return 0
+
+
+if __name__ == '__main__':
+    exit(run(sys.argv[1:]))
