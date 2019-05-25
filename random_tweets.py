@@ -143,6 +143,11 @@ def run_firehose():
             time.sleep(30)
             run = True
             print('{}: Restart!'.format(datetime.datetime.now()))
+        except twython.exceptions.TwythonAuthError as e:
+            print(e)
+            time.sleep(30)
+            run = True
+            print('{}: Restart!'.format(datetime.datetime.now()))
     print('Good bye.')
 
 
