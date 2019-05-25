@@ -24,6 +24,7 @@ BANNED_HOST_FINGERPRINTS = {
     '944c0a950264718ab454db3fcd6af35c',  # d3d3LnNvY2lhbGhvdDI0LmNvbQ
     '94e0416adc87ead296c90428f86828e6',  # cHNheHRpcmkuZXU
     'bcecfec2bc758f2cd7c2ae64832427d3',  # d3d3MTcucGxhbGEub3IuanA
+    'd36f9ec98c1e51a254c8a81a919bc727',  # c3Rhcm5ld3MyZGF5LmNvbQ
 }
 
 

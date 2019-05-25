@@ -10,7 +10,6 @@ set -e
 # - tar doesn't like files whose content changes
 # So I had to write this abomination.
 
-date
 cd "$(dirname "$0")"
 
 DIRNAME="tweets/"
@@ -52,5 +51,3 @@ else
 fi
 
 rm "${FILELIST}"
-
-date
