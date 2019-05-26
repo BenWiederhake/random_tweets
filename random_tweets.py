@@ -25,9 +25,11 @@ BANNED_HOST_FINGERPRINTS = {
     '920913c7f0a7a02b1dcd29b6f18a497c',  # d3d3MTAubWFrZWJvdC5zaA
     '944c0a950264718ab454db3fcd6af35c',  # d3d3LnNvY2lhbGhvdDI0LmNvbQ
     '94e0416adc87ead296c90428f86828e6',  # cHNheHRpcmkuZXU
+    'ae149eeb662da67b732c712075edcfb2',  # YW5pbWVuZXdzLWhhc3V0ZXJzLmJsb2cuanA
     'bcecfec2bc758f2cd7c2ae64832427d3',  # d3d3MTcucGxhbGEub3IuanA
     'c23f02e238724486dfb613e4535a4ec1',  # YWZmeS5qcA  # Who or what are you?
     'd36f9ec98c1e51a254c8a81a919bc727',  # c3Rhcm5ld3MyZGF5LmNvbQ
+    'f0bf3d4fb79fa4c17578fba3a01516e4',  # YW16bi50bw, because it's usually ads
     'f76120cf5ce766a2017c92496482a7c5',  # dGhpcy5raWppLmlz, soft ban
 }
 

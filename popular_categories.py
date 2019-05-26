@@ -30,16 +30,19 @@ HOST_KNOWN = [
     '6bc805a12f9c985a0290a576fe2cf736',  # aXR1bmVzLmFwcGxlLmNvbQ
     '7905d1c4e12c54933a44d19fcd5f9356',  # dHdpdHRlci5jb20
     'ab3201c6103205c14f6e56b11b2fcd46',  # d3d3LnlvdXR1YmUuY29t
+    'ae149eeb662da67b732c712075edcfb2',  # YW5pbWVuZXdzLWhhc3V0ZXJzLmJsb2cuanA
     'b8d631dd6a1ffd871cf9cd7a25f88cac',  # eW91dHUuYmU
     'c23f02e238724486dfb613e4535a4ec1',  # YWZmeS5qcA  # Who or what are you?
     'd88e23b2b9dd6eddd5fd9230eb4da404',  # bmV3cy5nb28ubmUuanA
     'db2d498a19b456cdccdbed290c6ec5cf',  # d3d3LjQ3bmV3cy5qcA
+    'f0bf3d4fb79fa4c17578fba3a01516e4',  # YW16bi50bw
     'f76120cf5ce766a2017c92496482a7c5',  # dGhpcy5raWppLmlz
     'f8c798e436e1d1f71c21538aa4477412',  # ZG93bmxvYWQuY28uanA
 ]
 
 
 KNOWN_SHORTENERS = [
+    '319679ba0a13c2787ac7314633f37a35',  # b3cubHk
     '604d5c5ec67df1a11cfaacc25418d7d8',  # Yml0Lmx5
     '8e3e2fed309a0b47bd276bf93f378e67',  # dGlueXVybC5jb20
     '95093b1e69e4eb7ba6d15ee439dbb9cb',  # Z29vLmds
@@ -113,7 +116,7 @@ def analyze_hosts(tweets, use_knownlist=True):
                 continue
             host_ctr[host] += 1
             host_tweets[host].append(tweet)
-    return host_ctr, host_tweets
+    return host_ctr, dict(host_tweets)
 
 
 def run(filenames):
@@ -122,7 +125,8 @@ def run(filenames):
     print('Most popular link-hosts:')
     for host, count in host_ctr.most_common(50):
         _, fingerprint, comment = make_fingerprint.make_fingerprint(host)
-        print("    '{f}',  # {c}, {h}, {n}".format(f=fingerprint, c=comment, h=host, n=count))
+        print("    '{f}',  # {c}, {h}, {n}, e.g. {tid}".format(
+            f=fingerprint, c=comment, h=host, n=count, tid=host_tweets[host][0]['id']))
 
 
 if __name__ == '__main__':
