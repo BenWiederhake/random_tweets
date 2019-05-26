@@ -101,7 +101,7 @@ class StreamerIn(twython.TwythonStreamer):
         random_token = '{:016x}'.format(random.getrandbits(64))
         with open('tweets/{}_{}.json'.format(random_token, tweet_data.get('id')), 'w') as fp:
             json.dump(tweet_data, fp, sort_keys=True, indent=1)
-        if not tweet_is_interesting(tweet):
+        if not tweet_is_interesting(tweet_data):
             return
         retained = dict()
         for key in ['id', 'lang', 'text']:
