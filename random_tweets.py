@@ -75,13 +75,16 @@ class StreamerIn(twython.TwythonStreamer):
             try:
                 self.twitter.retweet(id=tweet['id'])
                 success = True
-            except twython.exceptions.TwythonError as e:
+            except (twython.exceptions.TwythonError, twython.exceptions.TwythonAuthError) as e:
                 if 'You have already retweeted this Tweet' in e.msg:
                     # Eh, whatever
                     print('\tWhoops, already retweeted.')
                     pass
                 elif 'No status found with that ID.' in e.msg:
                     print('\tWhoops, user deleted it.')
+                    pass
+                elif "You have been blocked from retweeting this user's tweets at their request." in e.msg:
+                    print('\tWhoops, user {} blocked us.'.format(tweet['user']['id']))
                     pass
                 else:
                     raise e
@@ -139,11 +142,6 @@ def run_firehose():
             print('KeyboardInterrupt, exiting ...')
             pass
         except requests.exceptions.ChunkedEncodingError as e:
-            print(e)
-            time.sleep(30)
-            run = True
-            print('{}: Restart!'.format(datetime.datetime.now()))
-        except twython.exceptions.TwythonAuthError as e:
             print(e)
             time.sleep(30)
             run = True
