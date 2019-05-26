@@ -1,2 +1,3 @@
 account_secrets.py
 __pycache__/
+bot*.log
