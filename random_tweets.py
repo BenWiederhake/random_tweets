@@ -90,7 +90,7 @@ class StreamerIn(twython.TwythonStreamer):
                     print('\tWhoops, user deleted it.')
                     pass
                 elif "You have been blocked from retweeting this user's tweets at their request." in e.msg:
-                    print('\tWhoops, user {} blocked us.'.format(tweet['user']['id']))
+                    print('\tWhoops, user {} blocked us.'.format(tweet['user_id']))
                     pass
                 else:
                     raise e
@@ -109,6 +109,7 @@ class StreamerIn(twython.TwythonStreamer):
         for key in ['id', 'lang', 'text']:
             if key in tweet_data:
                 retained[key] = tweet_data[key]
+        retained['user_id'] = tweet_data['user']['id']
         self.counter += 1
         self.store.append(retained)
         now = datetime.datetime.now()
