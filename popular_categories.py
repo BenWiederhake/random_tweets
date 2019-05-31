@@ -42,7 +42,6 @@ HOST_KNOWN = [
 
 
 KNOWN_SHORTENERS = [
-    '319679ba0a13c2787ac7314633f37a35',  # b3cubHk
     '604d5c5ec67df1a11cfaacc25418d7d8',  # Yml0Lmx5
     '8e3e2fed309a0b47bd276bf93f378e67',  # dGlueXVybC5jb20
     '95093b1e69e4eb7ba6d15ee439dbb9cb',  # Z29vLmds
@@ -82,9 +81,9 @@ def get_host(url):
         sleep(10)
         response = requests.get(url, allow_redirects=False)
         if not response.ok or response.next is None:
-            print('\Giving up - not cached!')
+            print('\tGiving up - not cached!')
             # Give up
-            return host
+            return host, fingerprint
         next_url = response.next.url
         print('\tResolved as {}'.format(next_url))
         shortener_cache[url] = next_url
