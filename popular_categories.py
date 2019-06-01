@@ -26,16 +26,24 @@ HOST_KNOWN = [
     '21d0ab52d7dc898bda18646e9136f825',  # YWx3YXRhbm5ld3MubmV0
     '24e93f851545d2995ad1b426cfceff6a',  # dy5yYXNoLmpw
     '447becabaf8b220e5ebd8dbe8853da1d',  # ZmVlZHMuZmVlZGJ1cm5lci5jb20
+    '44e07809ecec80ee8b8c63fb040c4dac',  # d3d3LnRvcGljemEuY29t
     '4d05ee95a9892d5eb504dcaa1584cbe9',  # bmV3czM2NS5saW5r
+    '6532d80155c172d91b6274f1ef09a0a6',  # Zmx5dGVhbS5qcA
+    '683bb915fe898ed1f24f28df4d2e4e00',  # dmlwdmlwLm1hdG9tZXRhLWFudGVubmEuY29t
     '6bc805a12f9c985a0290a576fe2cf736',  # aXR1bmVzLmFwcGxlLmNvbQ
     '7905d1c4e12c54933a44d19fcd5f9356',  # dHdpdHRlci5jb20
+    '818e946c37f5cb5932133a38c3480955',  # YmxvZy5saXZlZG9vci5qcA
     'ab3201c6103205c14f6e56b11b2fcd46',  # d3d3LnlvdXR1YmUuY29t
     'ae149eeb662da67b732c712075edcfb2',  # YW5pbWVuZXdzLWhhc3V0ZXJzLmJsb2cuanA
     'b8d631dd6a1ffd871cf9cd7a25f88cac',  # eW91dHUuYmU
     'c23f02e238724486dfb613e4535a4ec1',  # YWZmeS5qcA  # Who or what are you?
+    'c54de091a2ce6cc93229bc9e949620dd',  # bm9ub2tvdG8uaXRpZ28uanA
     'd88e23b2b9dd6eddd5fd9230eb4da404',  # bmV3cy5nb28ubmUuanA
     'db2d498a19b456cdccdbed290c6ec5cf',  # d3d3LjQ3bmV3cy5qcA
+    'eac0e94892c704b88cb18d90e23dd4b5',  # a2FnZWtpLmhhbmt5dS5jby5qcA
+    'ed563545c39568abd23e4dad8646ab3e',  # d3d3Lm5pa2thbi5jby5qcA
     'f0bf3d4fb79fa4c17578fba3a01516e4',  # YW16bi50bw
+    'f6089a9c155ddd3c2f612d6a0d0efd87',  # d3d3Lm5hc3Nlci15YW1hbmkuY29t
     'f76120cf5ce766a2017c92496482a7c5',  # dGhpcy5raWppLmlz
     'f8c798e436e1d1f71c21538aa4477412',  # ZG93bmxvYWQuY28uanA
 ]
