@@ -17,7 +17,7 @@ LOOKUP_REALLY = False
 RESOLVE_SHORTENERS = True
 SHORTENER_DB = 'shortener_cache.json'
 
-HOST_KNOWN = [
+HOST_KNOWN = {
     '0a137b375cc3881a70e186ce2172c8d1',  # d3d3Lmdvb2dsZS5jb20
     '12bd7404d35af44f7ca87f73f7b9020c',  # d3d3Lm9raW5hd2F0aW1lcy5jby5qcA
     '1583bf6990be11ccac318beb9d9e67a6',  # d3d3Lm1va2VkbmV3cy5jby5pbA
@@ -25,6 +25,7 @@ HOST_KNOWN = [
     '18c4a11304c9e6807f76632aa9531706',  # eWxlLmZp
     '21d0ab52d7dc898bda18646e9136f825',  # YWx3YXRhbm5ld3MubmV0
     '24e93f851545d2995ad1b426cfceff6a',  # dy5yYXNoLmpw
+    '36ea9eca4ab266f308634297eca700c3',  # dG9rb3Rva28uMmNoYmxvZy5qcA
     '447becabaf8b220e5ebd8dbe8853da1d',  # ZmVlZHMuZmVlZGJ1cm5lci5jb20
     '44e07809ecec80ee8b8c63fb040c4dac',  # d3d3LnRvcGljemEuY29t
     '4d05ee95a9892d5eb504dcaa1584cbe9',  # bmV3czM2NS5saW5r
@@ -36,8 +37,11 @@ HOST_KNOWN = [
     'ab3201c6103205c14f6e56b11b2fcd46',  # d3d3LnlvdXR1YmUuY29t
     'ae149eeb662da67b732c712075edcfb2',  # YW5pbWVuZXdzLWhhc3V0ZXJzLmJsb2cuanA
     'b8d631dd6a1ffd871cf9cd7a25f88cac',  # eW91dHUuYmU
+    'bbd43773b56c998e428db4fd972b1218',  # bWF0b21lLm5hdmVyLmpw
     'c23f02e238724486dfb613e4535a4ec1',  # YWZmeS5qcA  # Who or what are you?
     'c54de091a2ce6cc93229bc9e949620dd',  # bm9ub2tvdG8uaXRpZ28uanA
+    'ccb987a8d526a7e7521120259bebe64a',  # d3d3Lm9rYXouY29tLnNh
+    'd3445220bb2794d477330dff364c460d',  # d3d3LmthdXBwYWxlaHRpLmZp
     'd88e23b2b9dd6eddd5fd9230eb4da404',  # bmV3cy5nb28ubmUuanA
     'db2d498a19b456cdccdbed290c6ec5cf',  # d3d3LjQ3bmV3cy5qcA
     'eac0e94892c704b88cb18d90e23dd4b5',  # a2FnZWtpLmhhbmt5dS5jby5qcA
@@ -46,17 +50,17 @@ HOST_KNOWN = [
     'f6089a9c155ddd3c2f612d6a0d0efd87',  # d3d3Lm5hc3Nlci15YW1hbmkuY29t
     'f76120cf5ce766a2017c92496482a7c5',  # dGhpcy5raWppLmlz
     'f8c798e436e1d1f71c21538aa4477412',  # ZG93bmxvYWQuY28uanA
-]
+}
 
 
-KNOWN_SHORTENERS = [
+KNOWN_SHORTENERS = {
     '604d5c5ec67df1a11cfaacc25418d7d8',  # Yml0Lmx5
     '8e3e2fed309a0b47bd276bf93f378e67',  # dGlueXVybC5jb20
     '95093b1e69e4eb7ba6d15ee439dbb9cb',  # Z29vLmds
     'a466d94da0e2455c6ffdbb0f9443ea88',  # dXJ4Lm51
     'aa5d4d50224090abe7a1eacc6212a8f9',  # ZGx2ci5pdA
     'b848f29bc505368fb62e6065fe5345b6',  # enByLmlv
-]
+}
 
 _SHORTENER_CACHE = None
 
