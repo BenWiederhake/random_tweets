@@ -14,7 +14,7 @@ cd "$(dirname "$0")"
 
 DIRNAME="tweets/"
 TARBASENAME="tarchives/archive_$(date "+%Y%m%d_%H%M%S")_$(du -sm tweets/ | cut -f1)MB"
-FILE_TAR="${TARBASENAME}.tar"
+FILE_TAR="${TARBASENAME}.tar.gz"
 FILELIST="$(mktemp)"
 
 # This cements the file selection:
@@ -22,7 +22,7 @@ find "${DIRNAME}" -name '*.json' -print0 | sort -z > "${FILELIST}"
 
 sleep 1 # Hopefully(!) finish writing files.
 
-if tar cf "${FILE_TAR}" --null -T "${FILELIST}"
+if tar caf "${FILE_TAR}" --null -T "${FILELIST}"
 then
     true # pass
 else
@@ -32,7 +32,7 @@ else
     exit "$EXITCODE"
 fi
 
-if tar tf "${FILE_TAR}" | xargs -r rm
+if tar taf "${FILE_TAR}" | xargs -r rm
 then
     true # pass
 else
@@ -41,13 +41,6 @@ else
     exit "$EXITCODE"
 fi
 
-if gzip "${FILE_TAR}"
-then
-    true # pass
-else
-    EXITCODE=$?
-    echo "Recompression failed, *NOT* cleaning up anything.  Filelist at ${FILELIST}." >&2
-    exit "$EXITCODE"
-fi
-
 rm "${FILELIST}"
+mkdir -p /tmp/newtars
+cp "${FILE_TAR}" /tmp/newtars
