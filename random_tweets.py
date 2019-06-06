@@ -150,6 +150,15 @@ def run_firehose():
         except KeyboardInterrupt:
             print('KeyboardInterrupt, exiting ...')
             pass
+        except requests.exceptions.ConnectionError as e:
+            print(e)
+            if ': Read timed out.' in e.msg:
+                print('{}: Sleeping for a while.'.format(datetime.datetime.now()))
+                time.sleep(600)
+                print('{}: Restart!'.format(datetime.datetime.now()))
+                run = True
+            else:
+                raise e
         except requests.exceptions.ChunkedEncodingError as e:
             print(e)
             time.sleep(30)
