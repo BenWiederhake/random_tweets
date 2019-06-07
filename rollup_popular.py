@@ -7,7 +7,7 @@ import sys
 
 def is_informational(l):
     return any(l.startswith(x) for x in
-               ['Most popular ', 'Waiting to resolve', '\tResolved '])
+               ['Most popular ', 'Waiting to resolve', '\tResolved ', 'Reading '])
 
 
 def run_file(filename):

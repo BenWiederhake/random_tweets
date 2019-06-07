@@ -111,6 +111,7 @@ def read_interesting_tweets(filenames):
     assert type(filenames) is not str
     tweets = []
     for filename in filenames:
+        print('Reading {} ...'.format(filename))
         for tweet in tar2json.import_json(filename):
             if random_tweets.tweet_is_interesting(tweet):
                 tweets.append(tweet)
