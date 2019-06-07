@@ -150,9 +150,9 @@ def run_firehose():
         except KeyboardInterrupt:
             print('KeyboardInterrupt, exiting ...')
             pass
-        except requests.exceptions.ConnectionError as e:
+        except (requests.exceptions.ConnectionError, twython.exceptions.TwythonError) as e:
             print(e)
-            if ': Read timed out.' in e.msg:
+            if ': Read timed out.' in e.msg or ': Twitter API returned a 500 (Internal Server Error)' in e.msg:
                 print('{}: Sleeping for a while.'.format(datetime.datetime.now()))
                 time.sleep(600)
                 print('{}: Restart!'.format(datetime.datetime.now()))
