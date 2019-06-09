@@ -21,9 +21,11 @@ RETWEET_PERIOD = datetime.timedelta(minutes=2)
 BANNED_HOST_FINGERPRINTS = {
     # Want to ban certain hosts without writing their hostname too clearly.
     '-INVALID-',
+    '3bb0fc09c286dcfb95a7fbc80e0029d4',  # cm9vZnRvcC5jYw
     '44e07809ecec80ee8b8c63fb040c4dac',  # d3d3LnRvcGljemEuY29t
     '4d05ee95a9892d5eb504dcaa1584cbe9',  # bmV3czM2NS5saW5r
     '683bb915fe898ed1f24f28df4d2e4e00',  # dmlwdmlwLm1hdG9tZXRhLWFudGVubmEuY29t
+    '6f77783855a33c3897d3d479a6e7f316',  # anlhbmktanlhbmkuYmxvZy5qcA, soft ban
     '818e946c37f5cb5932133a38c3480955',  # YmxvZy5saXZlZG9vci5qcA
     '920913c7f0a7a02b1dcd29b6f18a497c',  # d3d3MTAubWFrZWJvdC5zaA
     '944c0a950264718ab454db3fcd6af35c',  # d3d3LnNvY2lhbGhvdDI0LmNvbQ

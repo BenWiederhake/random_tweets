@@ -25,13 +25,18 @@ HOST_KNOWN = {
     '18c4a11304c9e6807f76632aa9531706',  # eWxlLmZp
     '21d0ab52d7dc898bda18646e9136f825',  # YWx3YXRhbm5ld3MubmV0
     '24e93f851545d2995ad1b426cfceff6a',  # dy5yYXNoLmpw
+    '290ccda0deea6083ee613d358446103e',  # d3d3LmJiYy5jb20
     '36ea9eca4ab266f308634297eca700c3',  # dG9rb3Rva28uMmNoYmxvZy5qcA
+    '3bb0fc09c286dcfb95a7fbc80e0029d4',  # cm9vZnRvcC5jYw
     '447becabaf8b220e5ebd8dbe8853da1d',  # ZmVlZHMuZmVlZGJ1cm5lci5jb20
     '44e07809ecec80ee8b8c63fb040c4dac',  # d3d3LnRvcGljemEuY29t
     '4d05ee95a9892d5eb504dcaa1584cbe9',  # bmV3czM2NS5saW5r
+    '5f879ce72fc5b82f40b12c6dd73cde22',  # d3d3Lmhva2thaWRvLW5wLmNvLmpw
     '6532d80155c172d91b6274f1ef09a0a6',  # Zmx5dGVhbS5qcA
     '683bb915fe898ed1f24f28df4d2e4e00',  # dmlwdmlwLm1hdG9tZXRhLWFudGVubmEuY29t
     '6bc805a12f9c985a0290a576fe2cf736',  # aXR1bmVzLmFwcGxlLmNvbQ
+    '6f77783855a33c3897d3d479a6e7f316',  # anlhbmktanlhbmkuYmxvZy5qcA
+    '72d0277103817c1ba7242e2b7a95698a',  # bmV3cy5pbmZvc2Vlay5jby5qcA
     '7905d1c4e12c54933a44d19fcd5f9356',  # dHdpdHRlci5jb20
     '818e946c37f5cb5932133a38c3480955',  # YmxvZy5saXZlZG9vci5qcA
     'ab3201c6103205c14f6e56b11b2fcd46',  # d3d3LnlvdXR1YmUuY29t
