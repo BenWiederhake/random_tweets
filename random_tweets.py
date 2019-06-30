@@ -100,6 +100,9 @@ class StreamerIn(twython.TwythonStreamer):
                 elif "You have been blocked from retweeting this user's tweets at their request." in e.msg:
                     print('\tWhoops, user {} blocked us.'.format(tweet['user_id']))
                     pass
+                elif 'Retweet is not permissible for this status.' in e.msg:
+                    print('\tWhoops, tweet {} is blocked.'.format(tweet['id']))
+                    pass
                 else:
                     raise e
             self.store.update(tweet['lang'])
