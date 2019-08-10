@@ -1,3 +1,20 @@
+# ABANDONED
+
+Twitter blocked my account for no reason and is ignoring my appeal.
+
+The last 5 tweets were all actual news, I wasn't spamming,
+my bot was programmed to handle any ratelimiting by completely stopping,
+I didn't see any signs of hitting ratelimits, I followed all the rules
+I'm aware of, and there were a few hundred followers and a few thousand likes or so.
+Not much, but enough to justify its existence.
+
+Twitter, I don't like your way of handling this.
+At least tell me *why* you shut it down.
+
+This is why we can't have nice things.
+
+I abandon this project.  Do whatever you like; but don't be like Twitter.
+
 # random_tweets
 
 > A tiny but random slice of world news tweets.
